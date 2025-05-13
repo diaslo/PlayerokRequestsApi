@@ -27,6 +27,7 @@ api = PlayerokItemsApi(cookies_file="cookies.json", logger=False)
 | `refill_item(item_id)`           | Возобновляет завершенный товар по его ID.                               | Словарь с ответом API или `None` при ошибке. |
 | `get_product_data(link)`         | Получает полную информацию о товаре по ссылке.                          | Словарь с данными товара или `None` при ошибке. |
 | `get_item_positioninfind(item_slug)` | Получает позицию товара на рынке по его slug.                        | `int` (позиция) или ошибка.              |
+| `get_categories_page(link)`         | Получает информацию о странице по ссылке                      | Словарь с данными страницы или `None` при ошибке. |
 
 ## Пример использования
 

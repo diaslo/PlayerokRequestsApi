@@ -1,5 +1,6 @@
 import json
 import tls_requests
+
 globalheaders = {
     'accept': '*/*',
     'accept-language': 'ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7',
@@ -25,6 +26,7 @@ globalheaders = {
     'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36',
     'x-timezone-offset': '-180',
 }
+
 api_url = "https://playerok.com/graphql"
 
 def load_cookies(cookies_file):
@@ -37,6 +39,7 @@ def load_cookies(cookies_file):
         except Exception as e:
             print(f"Ошибка при загрузке куков: {e}")
         return cookies_dict
+
 
 def get_username(cookies):
     """получить username и id пользователя (используется для получения в начале self.id, self.username)"""
@@ -62,4 +65,28 @@ def get_username(cookies):
         return '', ''
     except Exception as e:
         print(f"Неизвестная ошибка: {e}")
-        return '', ''
+        return '', ''     
+    
+
+Priority_Status_Refill = {
+    0: {
+        "Min": -1,
+        "Max": 0,
+        "Status": "1efbe5bc-99a7-68e5-4534-85dad913b981"
+    },
+    1: {
+        "Min": 90,
+        "Max": 499,
+        "Status" : "1f00f21b-7768-62a0-296f-75a31ee8ce72"
+    },
+    2: {
+        "Min": 500,
+        "Max": 999,
+        "Status" : "1f00f21b-776a-69b0-0118-32179c2cfc78"
+    },
+    3: {
+        "Min": 1000,
+        "Max": 2499,
+        "Status": "1f00f21b-776a-69b1-e0c6-7d518866d227"
+    }
+}

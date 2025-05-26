@@ -1,12 +1,34 @@
 import json
 import tls_requests
-from utils import globalheaders, load_cookies, get_username, api_url
+from utils import globalheaders, load_cookies, api_url, get_username
 
 class PlayerokUsersApi:
     def __init__(self, cookies_file="cookies.json", logger=False):
         self.cookies = load_cookies(cookies_file)
         self.Logging = logger
+        self.api_url = api_url
         self.username, self.id = get_username(self.cookies)
+
+
+
+    def get_unreadChatsCounter(self):
+        try:
+            json_data = {
+                'operationName': 'viewer',
+                'variables': {},
+                'query': 'query viewer {\n  viewer {\n    ...Viewer\n    __typename\n  }\n}\n\nfragment Viewer on User {\n  id\n  username\n  email\n  role\n  hasFrozenBalance\n  supportChatId\n  systemChatId\n  unreadChatsCounter\n  isBlocked\n  isBlockedFor\n  createdAt\n  lastItemCreatedAt\n  hasConfirmedPhoneNumber\n  canPublishItems\n  profile {\n    id\n    avatarURL\n    testimonialCounter\n    __typename\n  }\n  __typename\n}',
+            }
+            response = tls_requests.post(self.api_url, cookies=self.cookies, headers=globalheaders, json=json_data)
+            try:
+                data = response.json()
+                viewer = data.get('data', {}).get('viewer', {})
+                return viewer['unreadChatsCounter']
+            except Exception as e:
+                print(f'Unsolved problem(Please pass this error to the API owner.) - ERROR: {e}')
+        except ValueError as e:
+            return '', ''
+        except Exception as e:
+            return '', ''
 
     def get_id_for_username(self, username):
         """получить айди пользователя по никнейму"""
@@ -25,7 +47,7 @@ class PlayerokUsersApi:
             "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)",
         }
         try:
-            response = tls_requests.get(api_url, params=params, headers=headers, cookies=self.cookies)
+            response = tls_requests.get(self.api_url, params=params, headers=headers, cookies=self.cookies)
             if response.status_code == 200:
                 print("Запрос успешен!")
                 data = json.loads(response.text)
@@ -56,7 +78,7 @@ class PlayerokUsersApi:
         }
 
         try:
-            response = tls_requests.get(api_url, params=params, headers=globalheaders, cookies=self.cookies)
+            response = tls_requests.get(self.api_url, params=params, headers=globalheaders, cookies=self.cookies)
             if response.status_code == 200:
                 data = json.loads(response.text)
                 errors = data.get("errors", [])
@@ -89,7 +111,7 @@ class PlayerokUsersApi:
         }
 
         try:
-            response = tls_requests.get(api_url, params=params, headers=globalheaders, cookies=self.cookies)
+            response = tls_requests.get(self.api_url, params=params, headers=globalheaders, cookies=self.cookies)
             if response.status_code == 200:
                 data = json.loads(response.text)
                 errors = data.get("errors", [])
@@ -116,7 +138,7 @@ class PlayerokUsersApi:
         }
 
         try:
-            response = tls_requests.get(api_url, params=params, headers=globalheaders, cookies=self.cookies)
+            response = tls_requests.get(self.api_url, params=params, headers=globalheaders, cookies=self.cookies)
             if response.status_code == 200:
                 data = json.loads(response.text)
                 errors = data.get("errors", [])

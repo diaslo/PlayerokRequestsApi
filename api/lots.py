@@ -1,6 +1,6 @@
 import json
 import tls_requests
-from utils import globalheaders, load_cookies, api_url, get_username
+from api.utils import globalheaders, load_cookies, api_url, get_username
 from urllib.parse import urlparse
 
 class PlayerokLotsApi:

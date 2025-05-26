@@ -5,7 +5,7 @@
 ## Инициализация
 
 ```python
-from PlayerokRequestsApi.deals import PlayerokDealsApi
+from api.deals import PlayerokDealsApi
 
 api = PlayerokDealsApi(cookies_file="cookies.json", logger=False)
 ```
@@ -15,7 +15,7 @@ api = PlayerokDealsApi(cookies_file="cookies.json", logger=False)
 
 ## Методы
 
-| Метод                     | Описание                                                                 | Возвращаемое значение                     |
+| Метод                     | Описание                                                                 | Возвращаемое значение                    |
 |---------------------------|--------------------------------------------------------------------------|------------------------------------------|
 | `get_username()`          | Получает имя пользователя и ID текущего аккаунта из cookies.             | Кортеж `(username, id)` или `('', '')` при ошибке. |
 | `deal_confirm(id)`        | Подтверждает сделку по её ID.                                            | Словарь с ответом API или `None` при ошибке. |

@@ -1,13 +1,14 @@
 # API запросов Playerok
 
-API разделен на четыре основных модуля, каждый из которых отвечает за определенный аспект работы с платформой Playerok:
+API разделен на пять основных модулей, каждый из которых отвечает за определенный аспект работы с платформой Playerok:
 
 - **[Пользователи](#пользователи)**: Управление профилями пользователей, балансами и связанной информацией.
 - **[Сделки](#сделки)**: Работа со сделками, включая подтверждение сделок и получение оплаченных сделок.
 - **[Товары](#товары)**: Управление товарами (лотами) на платформе, включая получение, копирование и повышение приоритета товаров.
+- **[Лоты](#лоты)**
 - **[Чаты](#чаты)**: Взаимодействие с функционалом чатов, включая отправку сообщений и получение статусов сообщений.
 
-(`PlayerokUsersApi`, `PlayerokDealsApi`, `PlayerokItemsApi`, `PlayerokChatsApi`)
+(`PlayerokUsersApi`, `PlayerokDealsApi`, `PlayerokItemsApi`, `PlayerokChatsApi`, `PlayerokLotsApi`)
 
 ## Установка
 
@@ -23,7 +24,7 @@ pip install wrapper-tls-requests==1.1.2
 
 1. **Инициализация класса API**:
    ```python
-   from PlayerokRequestsApi.users import PlayerokUsersApi
+   from api.users import PlayerokUsersApi
    api = PlayerokUsersApi(cookies_file="cookies.json", logger=True)
    ```
 
@@ -31,12 +32,13 @@ pip install wrapper-tls-requests==1.1.2
    ```python
    profile = api.get_profile()
    if profile:
-       print(f"Ник: {profile[0]}, Всего товаров: {profile[2]}")
+      print(f"Ник: {profile[0]}, Всего товаров: {profile[2]}")
    ```
 
 Для подробных инструкций по использованию и описания методов обратитесь к соответствующим файлам документации:
 
-- [Документация API Users](users.md)
-- [Документация API Deals](deals.md)
-- [Документация API Items](items.md)
-- [Документация API Chats](chats.md)
+- [Документация API Users](docs/users.md)
+- [Документация API Deals](docs/deals.md)
+- [Документация API Items](docs/items.md)
+- [Документация API Chats](docs/chats.md)
+- [Документация API Lots](docs/lots.md)

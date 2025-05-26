@@ -1,7 +1,7 @@
 import json
 import tls_requests
-from utils import globalheaders, load_cookies, api_url, get_username, Priority_Status_Refill
-from lots import PlayerokLotsApi
+from api.utils import globalheaders, load_cookies, api_url, get_username, Priority_Status_Refill
+from api.lots import PlayerokLotsApi
 from urllib.parse import urlparse
 
 

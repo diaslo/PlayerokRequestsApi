@@ -5,7 +5,7 @@
 ## Инициализация
 
 ```python
-from PlayerokRequestsApi.chats import PlayerokChatsApi
+from api.chats import PlayerokChatsApi
 
 api = PlayerokChatsApi(cookies_file="cookies.json", logger=False)
 ```

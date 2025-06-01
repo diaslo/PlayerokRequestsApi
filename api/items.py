@@ -11,6 +11,8 @@ class PlayerokItemsApi:
         self.Logging = logger
         self.api_url = api_url
         self.username, self.id = get_username(self.cookies)
+        self.lots_api = PlayerokLotsApi(cookies_file, logger)
+
 
     def get_id_for_username(self, username):
         """получить айди пользователя по никнейму"""
@@ -176,7 +178,7 @@ class PlayerokItemsApi:
 
     def increase_item_priority(self, item_id):
         """поднять товар по айди"""
-        lots = PlayerokLotsApi(self.cookies, self.Logging).all_exhibited_lots()
+        lots = self.lots_api.all_exhibited_lots()
         lot = None
         for lot in lots:
             if lot['id'] == item_id:

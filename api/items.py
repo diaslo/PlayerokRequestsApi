@@ -186,6 +186,7 @@ class PlayerokItemsApi:
         price = None
         if lot:
             price = lot['rawPrice']
+            fee = lot['feeMultiplier'] * 100
         else:
             return None
 
@@ -193,7 +194,7 @@ class PlayerokItemsApi:
             "operationName": "increaseItemPriorityStatus",
             "variables": {
                 "input": {
-                    "priorityStatuses": [self.get_priority_status(price)],
+                    "priorityStatuses": [self.get_priority_status(price, fee)],
                     "transactionProviderId": "LOCAL",
                     "transactionProviderData": {"paymentMethodId": None},
                     "itemId": f"{item_id}"
@@ -213,14 +214,14 @@ class PlayerokItemsApi:
             print(f"Ошибка при отправке сообщения: {e}")
         return None
 
-    def get_priority_status(self, raw_price: int | float | None) -> str | None:
-        if raw_price is None:
+    def get_priority_status(self, raw_price: int | float | None, fee : int) -> str | None:
+        if raw_price and fee is None:
             return None
         
         try:
             for entry in Priority_Status_Refill.values():
                 if entry["Min"] <= raw_price <= entry["Max"]:
-                    return entry["Status"]
+                    return entry[fee]["Status"]
             return None
         except Exception as e:
             print(f"Error in get_priority_status: {e}")
@@ -231,13 +232,15 @@ class PlayerokItemsApi:
         """возобновить товар по id (он завершен)"""
         price = 0
         if not free:
-            price = self.get_product_data(f"https://playerok.com/products/{slug}")['data']['item']['rawPrice']
+            data = self.get_product_data(f"https://playerok.com/products/{slug}")['data']['item']
+            price = data['rawPrice']
+            fee = data['feeMultiplier'] * 100
         if item_id:
             json_data = {
                 "operationName": "publishItem",
                 "variables": {
                     "input": {
-                        "priorityStatuses": [self.get_priority_status(price)],
+                        "priorityStatuses": [self.get_priority_status(price, fee)],
                         "transactionProviderId": "LOCAL",
                         "transactionProviderData": {"paymentMethodId": None},
                         "itemId": f"{item_id}"

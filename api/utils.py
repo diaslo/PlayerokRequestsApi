@@ -72,21 +72,33 @@ Priority_Status_Refill = {
     0: {
         "Min": -1,
         "Max": 0,
-        "Status": "1efbe5bc-99a7-68e5-4534-85dad913b981"
+        "Status": {
+            10: "1efbe5bc-99a7-68e5-4534-85dad913b981",
+            20: "1efbe5bc-99a7-68e5-4534-85dad913b981"
+        }
     },
     1: {
         "Min": 90,
         "Max": 499,
-        "Status" : "1f00f21b-7768-62a0-296f-75a31ee8ce72"
+        "Status": {
+            10: "1efbe5bc-99a5-61d0-3f0c-665515f58196",
+            20: "1f00f21b-7768-62a0-296f-75a31ee8ce72"
+        }
     },
     2: {
         "Min": 500,
         "Max": 999,
-        "Status" : "1f00f21b-776a-69b0-0118-32179c2cfc78"
+        "Status": {
+            10: None,
+            20: "1f00f21b-776a-69b0-0118-32179c2cfc78"
+        }
     },
     3: {
         "Min": 1000,
         "Max": 2499,
-        "Status": "1f00f21b-776a-69b1-e0c6-7d518866d227"
+        "Status": {
+            10: None,
+            20: "1f00f21b-776a-69b1-e0c6-7d518866d227"
+        }
     }
 }
